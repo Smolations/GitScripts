@@ -2,5 +2,6 @@
 function gh_git {
     local cmd="$@"
 
-    git $@ &> "$gh_log_path"
+    git $@ &> "$GITHUG_LOG_FILE"
+    echo '-------------------------------------------' &> "$GITHUG_LOG_FILE"
 }

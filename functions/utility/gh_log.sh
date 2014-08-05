@@ -1,5 +1,5 @@
 ## /* @function
-#   @usage ge_log <data>
+#   @usage gh_log <data>
 #
 #   @output file
 #
@@ -13,18 +13,20 @@
 #   notes@
 #
 #   @examples
-#   1) __gslog "starting my script..."
-#   2) if [ $myage -lt 40 ]; then __gslog "You've still got time..."; fi
+#   1) gh_log "starting my script..."
+#   2) if [ $myage -lt 40 ]; then gh_log "You've still got time..."; fi
 #   examples@
 #
-#   @file functions/utility/gs_log.sh
+#   @file functions/utility/gh_log.sh
 ## */
+
 function gh_log {
     # check for global var which turns logging on
-
-    if __is_stdin; then
-        cat - | __log --file="$ge_log_path"
-    else
-        __log "$@"
+    if [ $GITHUG_LOGGING_ON == true ]; then
+        if __is_stdin; then
+            cat - | __log --file="$GITHUG_LOG_FILE"
+        else
+            __log --file="$GITHUG_LOG_FILE" "$@"
+        fi
     fi
 }

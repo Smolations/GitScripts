@@ -10,11 +10,6 @@
 #   and the reference to the gsman entry will be omitted.
 #   description@
 #
-#   @options
-#   -o  Omit the reference to gsman for usage instructions. If this option is given, only the
-#       command_name is used. Any further parameters are ignored.
-#   options@
-#
 #   @notes
 #   - A message cannot be given without a command name.
 #   notes@
@@ -30,60 +25,23 @@
 #
 #   @file functions/0100.gslog.sh
 ## */
+
 function gh_bad_usage {
-    hcolor=${COL_MAGENTA}
+    local hcolor=${COL_MAGENTA}
 
-    case $# in
-        1)
-            # 1st argument MUST be script/command name which has NO spaces and is not an option (-o)
-            local space=$(grep '[- ]' <<< "$1")
-            if [ -n "$space" ]; then
-                echo ${hcolor}"__bad_usage: Invalid usage."${X}" Use \""${hcolor}"gsman gsfunctions"${X}"\" for usage instructions."
-                fun="gsfunctions"
-            else
-                echo ${hcolor}"${1}: "${X}"Invalid usage. Use \""${hcolor}"gsman ${1}"${X}"\" for usage instructions."
-                fun="${1}"
-            fi
-            ;;
+    if [ $# != 1 ]; then
+        echo "gh_bad_usage: Must provide command name."
+        return 1
+    fi
 
-        2)
-            if [ "$1" == "-o" ]; then
-                # 2nd argument MUST be script/command name which has NO spaces
-                local space=$(grep '[ ]' <<< "$2")
-                if [ -n "$space" ]; then
-                    echo ${hcolor}"__bad_usage: Invalid usage."${X}" Use \""${hcolor}"gsman gsfunctions"${X}"\" for usage instructions."
-                    fun="gsfunctions"
-                else
-                    echo ${hcolor}"${2}: "${X}"Invalid usage."
-                    fun="gsfunctions"
-                fi
-            else
-                echo ${hcolor}"${1}: "${X}"${2} Use \""${hcolor}"gsman ${1}"${X}"\" for usage instructions."
-                fun="${1}"
-            fi
-            ;;
+    local usage=$( gh_parse_usage $1 )
 
-        3)
-            if [ "$1" == "-o" ]; then
-                echo ${hcolor}"${2}: "${X}"${3}"
-                fun="gsfunctions"
-            else
-                echo ${hcolor}"__bad_usage: Invalid usage."${X}" Use \""${hcolor}"gsman gsfunctions"${X}"\" for usage instructions."
-                fun="gsfunctions"
-            fi
-            ;;
+    if [ -n "$usage" ]; then
+        echo "Invalid usage for ${hcolor}${1}${X}. Correct usage below:"
+        echo $usage
 
-        *)
-            echo "Error: Invalid usage. Use \""${hcolor}"gsman <command>"${X}"\" for usage instructions."
-            fun="gsfunctions"
-            ;;
-    esac
-
-    echo
-    echo "Run \"${hcolor}gsman ${fun}${X}\"? y (n)"
-    read yn
-    if [ "$yn" = "y" ]
-        then
-        "${gitscripts_path}"gsman.sh "$fun"
+    else
+        echo "Invalid usage for ${hcolor}${1}${X}. Could not find usage details in file comment."
+        return 2
     fi
 }
