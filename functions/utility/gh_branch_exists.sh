@@ -29,7 +29,7 @@
 #
 #	@file functions.5000.branch_exists.sh
 ## */
-function __branch_exists {
+function gh_branch_exists {
 	if [ -z "$1" ]; then
 		__gslog "__branch_exists: First parameter must be branch name."
 		return 1

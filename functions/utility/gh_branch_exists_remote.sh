@@ -25,7 +25,7 @@
 #
 #	@file functions/5000.branch_exists_remote.sh
 ## */
-function __branch_exists_remote {
+function gh_branch_exists_remote {
 	if [ -z "$1" ]; then
 		echo ${E}"  __branch_exists_remote: First parameter must be branch name. Nothing given.  "${X}
 		return 1

@@ -24,7 +24,7 @@
 #
 #	@file functions/5000.branch_exists_local.sh
 ## */
-function __branch_exists_local {
+function gh_branch_exists_local {
 	if [ -z "$1" ]; then
 		echo ${E}"  __branch_exists_local: First parameter must be branch name. Nothing given.  "${X}
 		return 1

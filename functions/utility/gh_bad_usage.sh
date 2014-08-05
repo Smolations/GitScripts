@@ -30,7 +30,7 @@
 #
 #	@file functions/0100.gslog.sh
 ## */
-function __bad_usage {
+function gh_bad_usage {
 	hcolor=${COL_MAGENTA}
 
 	case $# in

@@ -29,7 +29,7 @@
 #
 #	@file functions/5000.branch_merge_set.sh
 ## */
-function __branch_merge_set {
+function gh_branch_merge_set {
 	if [ -z "$1" ]; then
 		__gslog "__branch_merge_set: First parameter must be branch name."
 		return 1

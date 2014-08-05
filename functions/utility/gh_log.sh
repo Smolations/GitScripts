@@ -19,7 +19,7 @@
 #
 #   @file functions/utility/gs_log.sh
 ## */
-function ge_log {
+function gh_log {
     if __is_stdin; then
         cat - | __log --file="$ge_log_path"
     else

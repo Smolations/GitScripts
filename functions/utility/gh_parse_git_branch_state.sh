@@ -44,7 +44,7 @@
 #
 #	@file functions/5000.parse_git_branch_state.sh
 ## */
-function __parse_git_branch_state {
+function gh_parse_git_branch_state {
 	! __is_repo && echo ${COL_MAGENTA}"not a repository"${X} && exit
 
 	# this function call exports all the state variables prefixed with _pgs_ below

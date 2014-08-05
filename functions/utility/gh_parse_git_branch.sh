@@ -23,6 +23,6 @@
 #
 #	@file functions/1000.parse_git_status.sh
 ## */
-function __parse_git_branch {
+function gh_parse_git_branch {
 	__is_repo && expr "$(git symbolic-ref HEAD)" : 'refs/heads/\(.*\)'
 }

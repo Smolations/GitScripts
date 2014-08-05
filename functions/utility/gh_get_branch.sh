@@ -45,7 +45,7 @@
 #
 #	@file functions/5000.get_branch.sh
 ## */
-function __get_branch {
+function gh_get_branch {
 	# declare local vars
 	local flag
 	local getLocal

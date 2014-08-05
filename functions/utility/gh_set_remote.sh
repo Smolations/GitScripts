@@ -31,7 +31,7 @@
 #	@file functions/1000.set_remote.sh
 ## */
 
-function __set_remote {
+function gh_set_remote {
 	remote=$(git config branch.$(__parse_git_branch).remote 2> /dev/null)
 
 	if [ ! $remote ]; then

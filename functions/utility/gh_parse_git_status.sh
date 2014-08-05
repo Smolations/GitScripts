@@ -42,7 +42,7 @@
 #
 #	@file functions/5000.parse_git_status.sh
 ## */
-function __parse_git_status {
+function gh_parse_git_status {
 	! __is_repo && exit
 
 	if [ -z "$1" ]; then
