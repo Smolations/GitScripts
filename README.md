@@ -10,7 +10,7 @@ These scripts were built in OS X 10.9 and should work in any Bash shell 3.2.51+.
 
 ### Dependencies
 
-The only hard dependency for git-hug is (functionsh)[https://github.com/Smolations/functionsh], which is a collection of helper functions for Bash development. However, there is built-in support for colors if you happen to have (colorsh)[https://github.com/Smolations/colorsh] installed. The documentation for git-hug functions and commands are written using the convention defined by the (myman)[https://github.com/Smolations/myman] documentation generator. Don't worry, if you don't have myman, you will still have access to usage definitions for git-hug. Keep reading!
+The only hard dependency for git-hug is [functionsh](https://github.com/Smolations/functionsh), which is a collection of helper functions for Bash development. However, there is built-in support for colors if you happen to have [colorsh](https://github.com/Smolations/colorsh) installed. The documentation for git-hug functions and commands are written using the convention defined by the [myman](https://github.com/Smolations/myman) documentation generator. Don't worry, if you don't have myman, you will still have access to usage definitions for git-hug. Keep reading!
 
 
 # Installation
