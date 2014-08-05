@@ -20,6 +20,8 @@
 #   @file functions/utility/gs_log.sh
 ## */
 function gh_log {
+    # check for global var which turns logging on
+
     if __is_stdin; then
         cat - | __log --file="$ge_log_path"
     else

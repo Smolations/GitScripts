@@ -17,7 +17,7 @@ The only hard dependency for git-hug is [functionsh](https://github.com/Smolatio
 
 Clone the repo somewhere on your machine:
 
-    git clone git@github.com:Smolations/git-hug.git
+    $ git clone git@github.com:Smolations/git-hug.git
 
 You will need to modify your `~/.bash_profile` or `~/.bashrc` file (assuming it's already sourced in `~/.bash_profile`). Add the following line to the file:
 

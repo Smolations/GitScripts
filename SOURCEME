@@ -1,85 +1,90 @@
 ##
-#   @description
-#   This file is the main controller for all GitScripts. It loads the necessary environment
-#   variables, aliases, and scripts that make GitScripts do it's thing. In order for
-#   GitScripts to functions properly, you must source this file from your ~/.bashrc,
-#   ~/.bash_profile, or some other script that loads automatically when you open your
-#   CLI.
-#
-#   Since this file is under source control, you should not make changes to it that you
-#   wish to persist. Instead, COPY (since it is also source-controlled) the contents of
-#   the cfg/user.overrides.example file into cfg/user.overrides (which you must create)
-#   and edit it to your heart's content.
-#   description@
-#
-#   @notes
-#   - The user.overrides file is loaded BEFORE the gs.cfg file so that other variables
-#   that use previously defined variables in their definition are defined according to
-#   user changes. This is because all variables defined in gs.cfg first check for the
-#   existence of a variable before defining it.
-#   notes@
-##
+ #  @description
+ #  This file is the main controller for git-hug. It loads the necessary environment
+ #  variables, aliases, and scripts that make git-hug do it's thing. In order for
+ #  git-hug to functions properly, you must source this file from your ~/.bashrc,
+ #  ~/.bash_profile, or some other script that loads automatically when you open your
+ #  CLI.
+ #
+ #  Since this file is under source control, you should not make changes to it that you
+ #  wish to persist. Instead, COPY (since it is also source-controlled) the contents of
+ #  the cfg/user.overrides.example file into cfg/user.overrides (which you must create)
+ #  and edit it to your heart's content.
+ #  description@
+ #
+ #  @notes
+ #  - The user.overrides file is loaded BEFORE the gs.cfg file so that other variables
+ #  that use previously defined variables in their definition are defined according to
+ #  user changes. This is because all variables defined in gs.cfg first check for the
+ #  existence of a variable before defining it.
+ #  notes@
+ ##
 
 
 # determine the path to this script.
-ge_path="${BASH_SOURCE[0]}"
-if [ -h "${ge_path}" ]; then
-    while [ -h "${ge_path}" ]; do ge_path=`readlink "${ge_path}"` done
+GITHUG_PATH="${BASH_SOURCE[0]}"
+if [ -h "${GITHUG_PATH}" ]; then
+    while [ -h "${GITHUG_PATH}" ]; do GITHUG_PATH=`readlink "${GITHUG_PATH}"` done
 fi
-if [ -d "$ge_path" ]; then
+if [ -d "$GITHUG_PATH" ]; then
     pushd . > /dev/null
-    cd `dirname ${ge_path}` > /dev/null
-    export ge_path=`pwd`
+    cd `dirname ${GITHUG_PATH}` > /dev/null
+    export GITHUG_PATH=`pwd`
     popd > /dev/null
 else
-    echo "Failed to set \`git-em\` path. It will not be loaded."
+    echo "Failed to set \`git-hug\` path. It will not be loaded."
     return 1
 fi
 
-# globals
-export ge_log_path="${ge_path}/git-em.log"
-: > "$ge_log_path"
 
-# cd "$ge_path"
+# globals needed before vars.cfg is loaded
+export GITHUG_CFG_PATH="${GITHUG_PATH}/cfg"
+export GITHUG_LOG_PATH="${GITHUG_PATH}/log"
+
+
+# TODO: make conditional
+export GITHUG_LOG_FILE="${GITHUG_LOG_PATH}/git-hug.log"
+[ ! -d "$GITHUG_LOG_PATH" ] && mkdir "$GITHUG_LOG_PATH"
+: > "$GITHUG_LOG_FILE"
+
+
+cwd=`pwd`
+cd "$GITHUG_PATH"
 
 # dependencies
-if ! git submodule update --init &> "$ge_log_path"; then
-    echo "${E} Could not load dependencies. Aborting \`git-em\` initialization."
+# check for submodule folders first and leave updating to gh_update
+if ! git submodule update --init &> "$GITHUG_LOG_PATH"; then
+    echo "${E} Could not load dependencies. Aborting \`git-hug\` initialization. ${X}"
     return 2
 fi
 
-# load functionsh
-source "${ge_path}/lib/functionsh/SOURCEME"
 
-# load up functions
-__source_all -x "${ge_path}/functions"
+# load functionsh and then source all git-hug functions
+source "${GITHUG_PATH}/lib/functionsh/SOURCEME"
+__source_all -x "${GITHUG_PATH}/functions"
 
-# generate core documentation?
-
-
-export gitscripts_cfg_path="${gitscripts_path}cfg/"
 
 # load user overrides.
-if [ -f "${gitscripts_cfg_path}user.overrides" ]; then
-    source "${gitscripts_cfg_path}user.overrides"
-fi
+[ -f "${GITHUG_CFG_PATH}/user.overrides" ] && source "${GITHUG_CFG_PATH}user.overrides"
 
 
-# load gitscripts variables config. fail if vars config can't be found.
-if [ -s "${gitscripts_cfg_path}vars.cfg" ]; then
-    source "${gitscripts_cfg_path}vars.cfg"
+# load variables. fail if vars config can't be found.
+if [ -s "${GITHUG_CFG_PATH}/vars.cfg" ]; then
+    source "${GITHUG_CFG_PATH}/vars.cfg"
 else
-    echo "GitScripts could not load it's main configuration file (cfg/vars.cfg) because it is missing or empty."
-    exit 1
+    echo "git-hug could not load it's main configuration file (cfg/vars.cfg) because it is missing or empty."
+    return 1
 fi
 
 
 # load other foundational files. The order here is intentional! see files for documentation.
-# note: you will have to re-define any of your personal aliases which conflict with GitScripts aliases
-#   sometime AFTER your have sourced this file (_gsinit.sh). The cfg/user.overrides will NOT work for aliases.
-source "${gitscripts_cfg_path}colors.cfg"
-source "${gitscripts_lib_path}source_files.sh"
-source "${gitscripts_cfg_path}completion.cfg"
-source "${gitscripts_cfg_path}flagged_actions.cfg"
-source "${gitscripts_cfg_path}aliases.cfg"
-#source "${gitscripts_cfg_path}"
+# note: you will have to re-define any of your personal aliases which conflict with git-hug aliases
+#   sometime AFTER your have sourced this file. The cfg/user.overrides will NOT work for aliases.
+source "${GITHUG_CFG_PATH}/colors.cfg"
+source "${GITHUG_CFG_PATH}/completion.cfg"
+source "${GITHUG_CFG_PATH}/flagged_actions.cfg"
+source "${GITHUG_CFG_PATH}/githug_aliases.cfg"
+
+
+
+cd "$cwd"
