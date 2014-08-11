@@ -1,5 +1,5 @@
 ## /* @function
-#   @usage __bad_usage [options] [command_name [message]]
+#   @usage gh_bad_usage <command_name>
 #
 #   @output true
 #
@@ -30,7 +30,7 @@ function gh_bad_usage {
     local hcolor=${COL_MAGENTA}
 
     if [ $# != 1 ]; then
-        echo "gh_bad_usage: Must provide command name."
+        echo "gh_bad_usage: Must provide command name." 1>&2
         return 1
     fi
 
@@ -41,7 +41,7 @@ function gh_bad_usage {
         echo $usage
 
     else
-        echo "Invalid usage for ${hcolor}${1}${X}. Could not find usage details in file comment."
+        echo "Invalid usage for ${hcolor}${1}${X}, but could not find usage details in file comment."
         return 2
     fi
 }
