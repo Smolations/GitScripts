@@ -30,16 +30,17 @@
 
 function branch-cleanup {
     # parse args
-    if [ $# -lt 3 ]; then
-        until [ -z "$1" ]; do
-            grep -q '^--base=' <<< "$1" && target="${1:7}"
-            shift
-        done
+    __in_args base "$@" && target="$_arg_val"
+    # if [ $# -lt 3 ]; then
+    #     until [ -z "$1" ]; do
+    #         grep -q '^--base=' <<< "$1" && target="${1:7}"
+    #         shift
+    #     done
 
-    else
-        gh_bad_usage branch-cleanup
-        return 1
-    fi
+    # else
+    #     gh_bad_usage branch-cleanup
+    #     return 1
+    # fi
 
     # target is the branch which, if it contains one of the user's local
     # branches, will determine if the user will be prompted to delete
