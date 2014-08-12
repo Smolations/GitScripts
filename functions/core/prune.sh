@@ -54,28 +54,31 @@ function prune {
 
     for (( i = 0; i < ${#branches[@]}; i++ )); do
         curBranch="${branches[$i]}"
-        echo -n "${BN}\`${curBranch}\`${X}"
 
-        # check if on branch
-        if [ "$cb" == "$curBranch" ]; then
-            echo "  Branch currently checked out. Skipping."
-            continue
-        fi
+        if [ "$curBranch" != "master" ]; then
+            echo -n "${BN}\`${curBranch}\`${X}"
 
-        # prompt to delete branch
-        __yes_no --default=n "Delete this branch"
-        if [ $_yes ]; then
+            # check if on branch
+            if [ "$cb" == "$curBranch" ]; then
+                echo "  Branch currently checked out. Skipping."
+                continue
+            fi
 
-            # prompt for force delete if normal delete fails for some reason
-            if ! gh_show_cmd git branch -d $curBranch; then
+            # prompt to delete branch
+            __yes_no --default=n "Delete this branch"
+            if [ $_yes ]; then
 
-                __yes_no --default=n "Normal delete failed. Force delete"
-                if [ $_yes ]; then
-                    gh_show_cmd git branch -D $curBranch
+                # prompt for force delete if normal delete fails for some reason
+                if ! gh_show_cmd git branch -d $curBranch; then
+
+                    __yes_no --default=n "Normal delete failed. Force delete"
+                    if [ $_yes ]; then
+                        gh_show_cmd git branch -D $curBranch
+                    fi
+
                 fi
 
             fi
-
         fi
     done
 
