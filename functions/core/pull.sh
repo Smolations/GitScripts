@@ -21,9 +21,9 @@
 function pull {
     # parse params
     __in_args quiet "$@" && isQuiet=true
-    __in_args q "$_args_clipped" && isQuiet=true
+    __in_args q "${_args_clipped[@]}" && isQuiet=true
 
-    branch="$_args_clipped"
+    branch="${_args_clipped[@]}"
 
     cb=$( gh_parse_git_branch )
     pullBranch="$cb"

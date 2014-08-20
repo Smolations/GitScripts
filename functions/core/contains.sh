@@ -30,13 +30,7 @@
 function contains {
     # parse args
     __in_args not "$@" && isNot=true && frag=" do NOT"
-    branch="$_args_clipped"
-
-    # until [ -z "$1" ]; do
-    #     [ "$1" = "--not" ] && isNot=true && frag=" do NOT"
-    #     [ "$1" != "--not" ] && branch="$1"
-    #     shift
-    # done
+    branch="${_args_clipped[@]}"
 
     if [ -z "$branch" ]; then
         # use current branch if none specified
