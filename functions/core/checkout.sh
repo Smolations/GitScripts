@@ -66,7 +66,7 @@ function checkout {
 
 
     # Configure the remote if one or more exists
-    __set_remote
+    gh_set_remote
 
     # Get up-to-date info from the remote, if any
     if [ $_remote ]; then
@@ -93,7 +93,7 @@ function checkout {
     # echo
 
     # check for "dirty" working directory and provide options if that is the case.
-    if ! __parse_git_status clean; then
+    if ! gh_parse_git_status clean; then
         echo
         echo "${W} WARNING: ${X} You appear to have uncommitted changes."
         echo
@@ -135,6 +135,8 @@ function checkout {
 
                 # Reset, clean, and continue
                 4)
+                    gh_show_cmd git reset --hard
+                    echo
                     echo "${W} WARNING: ${X} Here's what will happen during the clean:"
                     echo
                     gh_show_cmd git clean --dry-run
@@ -148,7 +150,6 @@ function checkout {
 
                     # echo "This attempts to ${A}reset${X} your current branch to the last stable commit (HEAD)"
                     # echo "and attempts to ${A}clean${X} your current branch of all untracked files."
-                    gh_show_cmd git reset --hard
                     # echo
                     gh_show_cmd git clean -f
                     # echo

@@ -1,4 +1,3 @@
-#!/bin/bash
 ## /*
 #   @usage pull [branch-name] [-q, --quiet]
 #

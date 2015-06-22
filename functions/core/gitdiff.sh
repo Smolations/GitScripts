@@ -1,4 +1,3 @@
-#!/bin/bash
 ## /*
 #   @usage gitdiff [-am] [base-branch]
 #
@@ -84,9 +83,7 @@ function gitdiff {
     # tell us if we have two hashes for the specs
     grep -q '\.' <<< "$hashes" && hasRange=true || hasRange=
 
-    # echo ${O}${H2HL}
     if [ ! $hashesSame ] && [ ! $showModified ]; then
-        # echo "$ git --no-pager log --oneline -30 ${hashFrom}..${hashTo}"
         gh_show_cmd git --no-pager log --oneline -30 ${hashFrom}..${hashTo}
 
         echo
@@ -113,11 +110,13 @@ function gitdiff {
 
             if [ -n "$difftoolCmd" ]; then
                 __yes_no --default=y "You have a difftool configured. Use it to view diff"
+                echo
                 if [ $_yes ]; then
                     gh_show_cmd git difftool $hashes
                 else
                     gh_show_cmd git diff -w $hashes
                 fi
+
             else
                 gh_show_cmd git diff -w $hashes
             fi

@@ -1,4 +1,3 @@
-#!/bin/bash
 ## /*
 #   @usage contains [--not] <branch-name>
 #

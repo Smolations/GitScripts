@@ -77,7 +77,7 @@ function commit {
                         # echo "Adding all modified and untracked files..."
                         # echo ${O}${H2HL}
                         # echo "$ git add -A"
-                        gh_show_cmd git add -A .
+                        gh_show_cmd git add --all .
                         gitAddResult=$?
                         if [ $gitAddResult != 0 ]; then
                             echo
@@ -102,7 +102,7 @@ function commit {
                 # echo "Adding all modified and untracked files..."
                 # echo ${O}${H2HL}
                 # echo "$ git add -A"
-                gh_show_cmd git add -A .
+                gh_show_cmd git add --all .
                 gitAddResult=$?
                 # echo ${O}${H2HL}${X}
                 if [ $gitAddResult -gt 0 ]; then

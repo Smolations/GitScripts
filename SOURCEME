@@ -62,7 +62,7 @@ fi
 
 
 # load functionsh and then source all git-hug functions
-source "${GITHUG_PATH}/lib/functionsh/SOURCEME"
+source "${GITHUG_PATH}/lib/functionsh/SOURCEME" > /dev/null
 __source_all -x "${GITHUG_PATH}/functions"
 
 

@@ -1,4 +1,3 @@
-#!/bin/bash
 ## /*
 #   @usage branch [options] [search-string]
 #
@@ -49,5 +48,5 @@ function branch {
     # prompt to checkout branch
     __yes_no --default=y "Would you like to checkout ${BN}\`${_branch_selection}\`${X}"
 
-    [ $_yes ] && checkout "$_branch_selection"
+    [ $_yes ] && echo && checkout "$_branch_selection"
 }

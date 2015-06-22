@@ -1,4 +1,3 @@
-#!/bin/bash
 ## /*
 #   @usage clean-branches [--base=<branch-name>]
 #

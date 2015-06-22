@@ -2,7 +2,7 @@
 #   @usage prune <branch-name>
 #
 #   @description
-#   This script isa  wrapper for removing branches locally. Removing them locally requires a bit of
+#   This script is a wrapper for removing branches locally. Removing them locally requires a bit of
 #   magic, which can be determined by observing the source code carefully. This obfuscation is
 #   included to prevent team members without sufficient access from deleting important remote
 #   branches.
