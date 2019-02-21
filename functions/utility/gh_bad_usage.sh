@@ -15,11 +15,11 @@
 #   notes@
 #
 #   @examples
-#   1) __bad_usage checkout "That branch name does not exist."
+#   1) gh_bad_usage checkout "That branch name does not exist."
 #       >> checkout: That branch name does not exist. Use "gsman checkout" for usage instructions.
-#   2) __bad_usage -o merge
+#   2) gh_bad_usage -o merge
 #       >> merge: Invalid usage.
-#   3) __bad_usage
+#   3) gh_bad_usage
 #       >> Error: Invalid usage. Use "gsman <command>" for usage instructions.
 #   examples@
 #
