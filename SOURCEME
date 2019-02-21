@@ -61,7 +61,7 @@ if ! git submodule update --init &> "$GITHUG_LOG_FILE"; then
 fi
 
 
-# load functionsh and then source all git-hug functions
+# load functionsh and then source all lobash/git-hug functions
 source "${GITHUG_PATH}/lib/lo-bash/SOURCEME" > /dev/null
 _.sourceAll -x -r "${GITHUG_PATH}/functions"
 
