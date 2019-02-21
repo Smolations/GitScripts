@@ -1,5 +1,5 @@
 ## /* @function
-#   @usage __branch_exists_local <branch_name>
+#   @usage gh_branch_exists_local <branch_name>
 #
 #   @output on error
 #
@@ -15,21 +15,21 @@
 #   @examples
 #   # ...
 #
-#   if __branch_exists_local master; then
+#   if gh_branch_exists_local master; then
 #       echo "local branch 'master' exists!"
 #   fi
 #
 #   #...
 #   examples@
 #
-#   @file functions/5000.branch_exists_local.sh
+#   @file functions/utility/gh_branch_exists_local.sh
 ## */
 
 function gh_branch_exists_local {
-    if [ -z "$1" ]; then
-        echo "${E}  gh_branch_exists_local: First parameter must be branch name. Nothing given.  ${X}"
-        return 1
-    fi
+  if [ -z "$1" ]; then
+    echo "${E}  gh_branch_exists_local: First parameter must be branch name. Nothing given.  ${X}" 1>&2
+    return 1
+  fi
 
-    git branch | egrep -q "^[* ]*${1}$" 2>/dev/null
+  git branch | egrep -q "^[* ]*${1}$" 2>/dev/null
 }

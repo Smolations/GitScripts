@@ -46,74 +46,73 @@
 #   @file functions/5000.get_branch.sh
 ## */
 function gh_get_branch {
-    # declare local vars
-    local flag
-    local getLocal
-    local getRemote
-    local isQuiet
-    local listType
-    local numArgs
-    local query
+  local flag
+  local getLocal
+  local getRemote
+  local isQuiet
+  local listType
+  local numArgs
+  local query
 
-    _branch_selection=
+  _branch_selection=
 
-    # parse params
-    flag="-a"
-    listType="local and remote"
-    if [ $# -gt 0 ]; then
-        until [ -z "$1" ]; do
-            { [ "$1" = "-l" ] || [ "$1" = "--local" ]; } && getLocal=true
-            { [ "$1" = "-r" ] || [ "$1" = "--remote" ]; } && getRemote=true
-            { [ "$1" = "-q" ] || [ "$1" = "--quiet" ]; } && isQuiet=true
-            ! echo "$1" | egrep -q "^-" && query="$1"
-            shift
-        done
+  # parse params
+  flag="-a"
+  listType="local and remote"
+  if [ $# -gt 0 ]; then
+    until [ -z "$1" ]; do
+      { [ "$1" = "-l" ] || [ "$1" = "--local" ]; } && getLocal=true
+      { [ "$1" = "-r" ] || [ "$1" = "--remote" ]; } && getRemote=true
+      { [ "$1" = "-q" ] || [ "$1" = "--quiet" ]; } && isQuiet=true
+      ! echo "$1" | egrep -q "^-" && query="$1"
+      shift
+    done
 
-        if [ $getLocal ] && [ ! $getRemote ]; then
-            flag=
-            listType="local"
-        elif [ $getRemote ] && [ ! $getLocal ]; then
-            flag="-r"
-            listType="remote"
-        fi
+    if [ $getLocal ] && [ ! $getRemote ]; then
+      flag=
+      listType="local"
+    elif [ $getRemote ] && [ ! $getLocal ]; then
+      flag="-r"
+      listType="remote"
     fi
+  fi
 
-    # grab and parse meta from branches
-    [ $query ] && [ ! $isQuiet ] && { echo "Searching ${O}${listType}${X} branches for branch names like: ${STYLE_BRIGHT}${COL_YELLOW}${query}${X}"; }
-    [ $query ] && query="$query"
-    branchArr=( `git branch $flag -l --no-color | grep --ignore-case "${query}" | awk '$0 !~ /.+ -> .+/ { sub(/^(\*|remotes\/)/,""); print; }'` )
+  # grab and parse meta from branches
+  [ $query ] && [ ! $isQuiet ] && { echo "Searching ${O}${listType}${X} branches for branch names like: ${STYLE_BRIGHT}${COL_YELLOW}${query}${X}"; }
+  [ $query ] && query="$query"
+  branchArr=( `git branch $flag -l --no-color | grep --ignore-case "${query}" | awk '$0 !~ /.+ -> .+/ { sub(/^(\*|remotes\/)/,""); print; }'` )
 
-    # if viewing local, create a shortcut for viewing remotes
-    if [ $getLocal ]; then
-        branchArr[${#branchArr[@]}]="-k"
-        branchArr[${#branchArr[@]}]=":R:View remote branches"
-    fi
+  # if viewing local, create a shortcut for viewing remotes
+  if [ $getLocal ]; then
+    branchArr[${#branchArr[@]}]="-k"
+    branchArr[${#branchArr[@]}]=":R:View remote branches"
+  fi
 
-    # generate menu. the "no branches found" message only triggered if an invalid
-    # selection is made from __menu or $branches is empty
-    if [ $getLocal ] && [ ${#branchArr[@]} -eq 2 ]; then
-        echo ${W}"  No branches found!  "${X}
-        return 1
-    fi
-    [ ${#branchArr[@]} -gt 0 ] && __menu --prompt="Please choose a branch" "${branchArr[@]}" || {
-        echo ${W}"  No branches found!  "${X}
-        return 1
-    }
+  # generate menu. the "no branches found" message only triggered if an invalid
+  # selection is made from __menu or $branches is empty
+  if [ $getLocal ] && [ ${#branchArr[@]} -eq 2 ]; then
+    echo ${W}"  No branches found!  "${X}
+    return 1
+  fi
+  [ ${#branchArr[@]} -gt 0 ] && _.menu --prompt="Please choose a branch" "${branchArr[@]}" || {
+    echo ${W}"  No branches found!  "${X}
+    return 1
+  }
 
-    if [ "$_menu_sel_index" = "R" ] && [ -n "$( git remote )" ]; then
-        local quiet
-        [ $isQuiet ] && quiet="-q"
-        echo
-        gh_get_branch -r $quiet $query
-        _menu_sel_value=$_branch_selection
-    fi
+  if [ "$_menu_sel_index" = "R" ] && [ -n "$( git remote )" ]; then
+    local quiet
+    [ $isQuiet ] && quiet="-q"
+    echo
+    gh_get_branch -r $quiet $query
+    _menu_sel_value=$_branch_selection
+  fi
 
-    # process selection and export variable
-    [ -n "$_menu_sel_value" ] && {
-        export _branch_selection="$_menu_sel_value"
-        return 0
-    } || {
-        export _branch_selection
-        return 1
-    }
+  # process selection and export variable
+  [ -n "$_menu_sel_value" ] && {
+    export _branch_selection="$_menu_sel_value"
+    return 0
+  } || {
+    export _branch_selection
+    return 1
+  }
 }

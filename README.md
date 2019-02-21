@@ -1,3 +1,7 @@
+## IN PROGRESS/NOT STABLE
+
+*NOTE:* This library is currently in progress. Not ready for use.
+
 git-hug is a collection of shell scripts that simplify and streamline the use of Git. git-hug does not replace Git, nor does it aim to. It's kind of a wrapper for Git, or more, an extension to Git's built-in commands. In short, these scripts and Git are locked in a nice, warm hug.  =]
 
  If you install git-hug, you can still access all of your git commands exactly the same way you used to. However, now you have an extra library of commands at your disposal.

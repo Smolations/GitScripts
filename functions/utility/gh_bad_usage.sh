@@ -23,7 +23,7 @@
 #       >> Error: Invalid usage. Use "gsman <command>" for usage instructions.
 #   examples@
 #
-#   @file functions/0100.gslog.sh
+#   @file functions/utility/gh_bad_usage.sh
 ## */
 
 function gh_bad_usage {

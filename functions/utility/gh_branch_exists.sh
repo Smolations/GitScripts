@@ -1,5 +1,5 @@
 ## /* @function
-#   @usage __branch_exists <branch_name>
+#   @usage gh_branch_exists <branch_name>
 #
 #   @output false
 #
@@ -16,7 +16,7 @@
 #   @examples
 #   # ...
 #
-#   if __branch_exists master; then
+#   if gh_branch_exists master; then
 #       echo "Branch 'master' exists!"
 #   fi
 #
@@ -24,30 +24,31 @@
 #   examples@
 #
 #   @dependencies
-#   functions/0200.gslog.sh
+#   egrep
+#   gh_log
 #   dependencies@
 #
-#   @file functions.5000.branch_exists.sh
+#   @file functions/utility/gh_branch_exists.sh
 ## */
 
 function gh_branch_exists {
-    if [ -z "$1" ]; then
-        gh_log "gh_branch_exists: First parameter must be branch name."
-        return 1
-    fi
-
-    local locally=$( git branch | egrep "^[* ]*${1}$" )
-
-    if [ -n "$locally" ]; then
-        return 0
-
-    else
-        local remotely=$( git branch -r | egrep "$1" )
-
-        if [ -n "$remotely" ]; then
-            return 0
-        fi
-    fi
-
+  if [ -z "$1" ]; then
+    gh_log "gh_branch_exists: First parameter must be branch name."
     return 1
+  fi
+
+  local locally=$( git branch | egrep "^[* ]*${1}$" )
+
+  if [ -n "$locally" ]; then
+    return 0
+
+  else
+    local remotely=$( git branch -r | egrep "$1" )
+
+    if [ -n "$remotely" ]; then
+      return 0
+    fi
+  fi
+
+  return 1
 }
