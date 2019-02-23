@@ -65,13 +65,13 @@ function prune {
             fi
 
             # prompt to delete branch
-            __yes_no --default=n "Delete this branch"
+            _.yesNo --default=n "Delete this branch"
             if [ $_yes ]; then
 
                 # prompt for force delete if normal delete fails for some reason
                 if ! gh_show_cmd git branch -d $curBranch; then
 
-                    __yes_no --default=n "Normal delete failed. Force delete"
+                    _.yesNo --default=n "Normal delete failed. Force delete"
                     if [ $_yes ]; then
                         gh_show_cmd git branch -D $curBranch
                     fi

@@ -29,7 +29,7 @@
 
 function branch-cleanup {
     # parse args
-    __in_args base "$@" && target="$_arg_val"
+    _.inArgs base "$@" && target="$_arg_val"
 
     # target is the branch which, if it contains one of the user's local
     # branches, will determine if the user will be prompted to delete
@@ -81,7 +81,7 @@ function branch-cleanup {
     rm "$tmp"
 
     echo
-    __yes_no --default=n 'Would you like to begin deleting branches'
+    _.yesNo --default=n 'Would you like to begin deleting branches'
     if [ $_no ]; then
         echo "  Right on. Exiting..."
         return 0

@@ -104,12 +104,12 @@ function checkout {
         choices[3]="${A}Reset${X} & ${A}Clean${X} all files, and continue with checkout"
         choices[4]="I know what I'm doing, continue with checkout"${X}
 
-        if __menu "${choices[@]}"; then
+        if _.menu "${choices[@]}"; then
             echo ${X}
             case $_menu_sel_index in
                 # Commit changes and continue
                 1)
-                    __short_ans "Please enter a commit message:"
+                    _.shortAns "Please enter a commit message:"
                     [ -z "$_ans" ] && _ans="[git-hug commit] Commit message omitted."
                     commit -a "$_ans"
                 ;;
@@ -142,7 +142,7 @@ function checkout {
                     gh_show_cmd git clean --dry-run
                     echo
 
-                    __yes_no --default=n "Continue with git clean and checkout"
+                    _.yesNo --default=n "Continue with git clean and checkout"
 
                     if [ $_no ]; then
                         return

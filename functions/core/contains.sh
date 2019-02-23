@@ -28,7 +28,7 @@
 
 function contains {
     # parse args
-    __in_args not "$@" && isNot=true && frag=" do NOT"
+    _.inArgs not "$@" && isNot=true && frag=" do NOT"
     branch="${_args_clipped[@]}"
 
     if [ -z "$branch" ]; then

@@ -103,13 +103,13 @@ function gitdiff {
     # only need to ask to do a diff if there ARE differences.
     if [ -n "$( git diff --name-status $hashes )" ]; then
         echo
-        __yes_no --default=n "See the diff"
+        _.yesNo --default=n "See the diff"
         if [ $_yes ]; then
             # look for a difftool first, asking user
             difftoolCmd=$( git config --global --list | egrep 'difftool\.[^.]+\.cmd' )
 
             if [ -n "$difftoolCmd" ]; then
-                __yes_no --default=y "You have a difftool configured. Use it to view diff"
+                _.yesNo --default=y "You have a difftool configured. Use it to view diff"
                 echo
                 if [ $_yes ]; then
                     gh_show_cmd git difftool $hashes

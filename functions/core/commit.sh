@@ -70,7 +70,7 @@ function commit {
             "-a")
                 if gh_parse_git_status untracked; then
                     # echo
-                    __yes_no --default=n "Would you like to add untracked files as well"
+                    _.yesNo --default=n "Would you like to add untracked files as well"
                     if [ $_yes ]; then
                         # echo
                         # echo
@@ -84,7 +84,7 @@ function commit {
                             echo "${W} WARNING: ${X} The command to add ALL tracked and untracked files failed (see"
                             echo "above). It is unlikely that your desired outcome will result from this commit."
 
-                            __yes_no --default=n 'Do you still want to continue with the commit'
+                            _.yesNo --default=n 'Do you still want to continue with the commit'
                             if [ $_no ]; then
                                 echo
                                 echo "That's probably for the best. Aborting..."
@@ -110,7 +110,7 @@ function commit {
                     echo "${W} WARNING: ${X} The command to add ALL tracked and untracked files failed (see"
                     echo "above). It is unlikely that your desired outcome will result from this commit."
 
-                    __yes_no --default=n 'Do you still want to continue with the commit'
+                    _.yesNo --default=n 'Do you still want to continue with the commit'
                     if [ $_no ]; then
                         echo
                         echo "That's probably for the best. Aborting..."

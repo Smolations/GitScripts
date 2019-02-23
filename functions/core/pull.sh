@@ -19,15 +19,15 @@
 
 function pull {
     # parse params
-    __in_args quiet "$@" && isQuiet=true
-    __in_args q "${_args_clipped[@]}" && isQuiet=true
+    _.inArgs quiet "$@" && isQuiet=true
+    _.inArgs q "${_args_clipped[@]}" && isQuiet=true
 
     branch="${_args_clipped[@]}"
 
     cb=$( gh_parse_git_branch )
     pullBranch="$cb"
 
-    __set_remote
+    gh_set_remote
 
     if [ ! $_remote ]; then
         echo "${E}  There is no remote to pull in changes from! Aborting...  ${X}"

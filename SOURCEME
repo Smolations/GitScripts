@@ -24,8 +24,8 @@
 # determine the path to this script.
 GITHUG_PATH="${BASH_SOURCE[0]}"
 if [ -h "${GITHUG_PATH}" ]; then
-    echo symbolic link
-    while [ -h "${GITHUG_PATH}" ]; do GITHUG_PATH=`readlink "${GITHUG_PATH}"`; done
+  echo symbolic link
+  while [ -h "${GITHUG_PATH}" ]; do GITHUG_PATH=`readlink "${GITHUG_PATH}"`; done
 fi
 pushd . > /dev/null
 cd `dirname ${GITHUG_PATH}` > /dev/null
@@ -34,8 +34,8 @@ popd > /dev/null
 
 
 if [ ! -d "$GITHUG_PATH" ]; then
-    echo "Failed to set \`git-hug\` path. It will not be loaded."
-    return 1
+  echo "Failed to set \`git-hug\` path. It will not be loaded."
+  return 1
 fi
 
 
@@ -56,8 +56,8 @@ cd "$GITHUG_PATH"
 # dependencies
 # check for submodule folders first and leave updating to gh_update
 if ! git submodule update --init &> "$GITHUG_LOG_FILE"; then
-    echo "${E} Could not load dependencies. Aborting \`git-hug\` initialization. ${X}"
-    return 2
+  echo "${E} Could not load dependencies. Aborting \`git-hug\` initialization. ${X}"
+  return 2
 fi
 
 
@@ -72,10 +72,10 @@ _.sourceAll -x -r "${GITHUG_PATH}/functions"
 
 # load variables. fail if vars config can't be found.
 if [ -s "${GITHUG_CFG_PATH}/vars.cfg" ]; then
-    source "${GITHUG_CFG_PATH}/vars.cfg"
+  source "${GITHUG_CFG_PATH}/vars.cfg"
 else
-    echo "git-hug could not load it's main configuration file (cfg/vars.cfg) because it is missing or empty."
-    return 1
+  echo "git-hug could not load it's main configuration file (cfg/vars.cfg) because it is missing or empty."
+  return 1
 fi
 
 
@@ -86,7 +86,6 @@ source "${GITHUG_CFG_PATH}/colors.cfg"
 source "${GITHUG_CFG_PATH}/completion.cfg"
 source "${GITHUG_CFG_PATH}/flagged_actions.cfg"
 source "${GITHUG_CFG_PATH}/githug_aliases.cfg"
-
 
 
 cd "$cwd"

@@ -23,10 +23,10 @@
 function gh_log {
     # check for global var which turns logging on
     if [ $GITHUG_LOGGING_ON == true ]; then
-        if __is_stdin; then
-            cat - | __log --file="$GITHUG_LOG_FILE"
+        if _.isStdin; then
+            cat - | _.log --file="$GITHUG_LOG_FILE"
         else
-            __log --file="$GITHUG_LOG_FILE" "$@"
+            _.log --file="$GITHUG_LOG_FILE" "$@"
         fi
     fi
 }

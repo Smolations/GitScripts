@@ -46,7 +46,7 @@ function branch {
     echo $X
 
     # prompt to checkout branch
-    __yes_no --default=y "Would you like to checkout ${BN}\`${_branch_selection}\`${X}"
+    _.yesNo --default=y "Would you like to checkout ${BN}\`${_branch_selection}\`${X}"
 
     [ $_yes ] && echo && checkout "$_branch_selection"
 }

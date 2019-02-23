@@ -2,4 +2,4 @@
 *.log
 *.overrides
 *.sublime-project
-temp/*
+tmp/*

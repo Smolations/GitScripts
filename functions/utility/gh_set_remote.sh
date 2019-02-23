@@ -45,7 +45,7 @@ function gh_set_remote {
 
         if [ $(echo $remotes | wc -w) -gt 1 ]; then
             local msg="Please choose a remote from the list above"
-            __menu --prompt="$msg" $remotes && { remote=$_menu_sel_value; } || {
+            _.menu --prompt="$msg" $remotes && { remote=$_menu_sel_value; } || {
                 return 1
             }
         else
