@@ -23,6 +23,15 @@
 #       >> Error: Invalid usage. Use "gsman <command>" for usage instructions.
 #   examples@
 #
+#   @dependencies
+#   gh_parse_usage
+#   dependencies@
+#
+#   @returns
+#   0 - successful execution
+#   1 - first argument is missing
+#   returns@
+#
 #   @file functions/utility/gh_bad_usage.sh
 ## */
 

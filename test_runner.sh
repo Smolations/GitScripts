@@ -1,12 +1,12 @@
 #!/bin/bash
 
-runner_path="$(pwd)/tmp/shunit2"
-runner_cmd="${runner_path}/shunit2"
 tests_path="$(pwd)/tests"
+runner_path="$(pwd)/tmp/shunit2"
+export runner_cmd="${runner_path}/shunit2"
 
 
 if [ ! -f "${runner_cmd}" ]; then
-  echo "ERROR: Run tests from root of project!";
+  echo "ERROR: Could not find shunit at ${runner_cmd}";
   exit
 fi
 
@@ -14,24 +14,48 @@ fi
 source ./SOURCEME
 
 
-getTests() {
-  local path="$1"
-  local testFile
-  local filePath
+goto() {
+  pushd "$@" > /dev/null
+}
 
-  for testFile in "${path}/"*; do
-    if [ -d "$testFile" ]; then
-      getTests "$testFile"
-    elif [ -e "$testFile" ]; then
-      echo "$testFile"
-    fi
-  done
+goback() {
+  popd > /dev/null
+}
+
+getTestNameFromFile() {
+  local input="$@"
+  local baseName="$(basename "${input}")"
+  echo "${baseName%%\.sh}"
+}
+
+header() {
+  echo
+  echo " /^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^/"
+  echo "/-------------------------------------------------------/"
+  echo "| Test:  ${@}"
+  echo "-------------------------------------------------------/"
 }
 
 
-export runner_cmd
+core=(
+)
+
+utility=(
+  'gh_is_repo'
+  'gh_bad_usage'
+)
+
+export -f goto goback
+
 
 # maybe messes up if spaces in path? meh.
-for tst in $(getTests "$tests_path"); do
-  "$tst"
+for tst in ${utility[@]} ${core[@]}; do
+  test_file="${tests_path}/utility/${tst}.sh"
+
+  if [ -e "$test_file" ]; then
+    header "$(getTestNameFromFile "${test_file}")"
+    "$test_file"
+  else
+    echo "ERROR: Cannot find test file: ${test_file}"
+  fi
 done

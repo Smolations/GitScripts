@@ -1,22 +1,23 @@
 oneTimeSetUp() {
-  echo 'oneTimeSetUp'
+  cmdName=gh_bad_usage
 }
 
 oneTimeTearDown() {
-  echo 'oneTimeTearDown'
+  :
 }
 
 setUp() {
-  echo 'setUp'
+  :
 }
 
 tearDown() {
-  echo 'tearDown'
+  :
 }
 
-test__gh_bad_usage() {
-  echo 'running test'
-  assertEquals 1 1
+
+it_errors_when_missing_argument() {
+  ${cmdName} &> /dev/null
+  assertEquals $? 1
 }
 
 # test__gh_bad_usage() {
