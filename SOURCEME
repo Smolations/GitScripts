@@ -63,7 +63,7 @@ fi
 
 # load functionsh and then source all lobash/git-hug functions
 source "${GITHUG_PATH}/lib/lo-bash/SOURCEME" > /dev/null
-_sourceAll -x -r "${GITHUG_PATH}/functions"
+_sourceAll -x -r "${GITHUG_PATH}/functions/utility"
 
 
 # load user overrides.

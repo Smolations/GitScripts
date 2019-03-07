@@ -42,7 +42,7 @@ core=(
 
 utility=(
   'gh_is_repo'
-  'gh_bad_usage'
+  # 'gh_bad_usage'
 )
 
 export -f goto goback
