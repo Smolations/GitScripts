@@ -25,5 +25,5 @@
 ## */
 
 function gh_parse_git_branch {
-    gh_is_repo && expr "$( git symbolic-ref HEAD )" : 'refs/heads/\(.*\)'
+  gh_is_repo && expr "$( git symbolic-ref HEAD )" : 'refs/heads/\(.*\)'
 }

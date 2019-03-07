@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tests_path="$(pwd)/tests"
-runner_path="$(pwd)/tmp/shunit2"
+runner_path="$(pwd)/lib/shunit2"
 export runner_cmd="${runner_path}/shunit2"
 
 

@@ -36,21 +36,21 @@
 ## */
 
 function gh_bad_usage {
-    local hcolor=${COL_MAGENTA}
+  local hcolor=${COL_MAGENTA}
 
-    if [ $# != 1 ]; then
-        echo "gh_bad_usage: Must provide command name." 1>&2
-        return 1
-    fi
+  if [[ $# != 1 ]]; then
+    echo "gh_bad_usage: Must provide command name." 1>&2
+    return 1
+  fi
 
-    local usage=$( gh_parse_usage $1 )
+  local usage=$( gh_parse_usage $1 )
 
-    if [ -n "$usage" ]; then
-        echo "Invalid usage for ${hcolor}${1}${X}. Correct usage below:"
-        echo $usage
+  if [ -n "$usage" ]; then
+    echo "Invalid usage for ${hcolor}${1}${X}. Correct usage below:"
+    echo $usage
 
-    else
-        echo "Invalid usage for ${hcolor}${1}${X}, but could not find usage details in file comment."
-        return 2
-    fi
+  else
+    echo "Invalid usage for ${hcolor}${1}${X}, but could not find usage details in file comment."
+    return 2
+  fi
 }
