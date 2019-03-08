@@ -4,7 +4,7 @@ oneTimeSetUp() {
 
   mkdir "${nonGitDir}"
   mkdir "${gitDir}"
-  goto "$gitDir"
+  goto "${gitDir}"
   git init > /dev/null
   goback
 }
