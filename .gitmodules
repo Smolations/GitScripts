@@ -1,3 +1,6 @@
 [submodule "lib/lo-bash"]
 	path = lib/lo-bash
 	url = git@github.com:Smolations/lo-bash.git
+[submodule "lib/shunit2"]
+	path = lib/shunit2
+	url = git@github.com:Smolations/shunit2.git
